@@ -5,12 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Especie{
-	
+public class Raca {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -19,6 +21,10 @@ public class Especie{
 	@NotBlank
 	@NotNull
 	private String nome;
+
+	@ManyToOne
+	@JoinColumn(name = "especie_id")
+	private Especie especie;
 
 	public Integer getId() {
 		return id;
@@ -34,6 +40,14 @@ public class Especie{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Especie getEspecie() {
+		return especie;
+	}
+
+	public void setEspecie(Especie especie) {
+		this.especie = especie;
 	}
 
 	@Override
@@ -52,7 +66,7 @@ public class Especie{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Especie other = (Especie) obj;
+		Raca other = (Raca) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -63,7 +77,7 @@ public class Especie{
 
 	@Override
 	public String toString() {
-		return "Especie [id=" + id + ", nome=" + nome + "]";
+		return "Raca [id=" + id + ", nome=" + nome + ", especie=" + especie + "]";
 	}
 
 }

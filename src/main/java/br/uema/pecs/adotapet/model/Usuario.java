@@ -9,8 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Especie{
-	
+public class Usuario {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -19,6 +19,21 @@ public class Especie{
 	@NotBlank
 	@NotNull
 	private String nome;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String email;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String telefone;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String senha;
 
 	public Integer getId() {
 		return id;
@@ -34,6 +49,30 @@ public class Especie{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
@@ -52,7 +91,7 @@ public class Especie{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Especie other = (Especie) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -63,7 +102,8 @@ public class Especie{
 
 	@Override
 	public String toString() {
-		return "Especie [id=" + id + ", nome=" + nome + "]";
+		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", senha="
+				+ senha + "]";
 	}
 
 }

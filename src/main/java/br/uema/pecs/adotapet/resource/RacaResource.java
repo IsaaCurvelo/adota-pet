@@ -15,64 +15,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uema.pecs.adotapet.model.Especie;
-import br.uema.pecs.adotapet.repository.Especies;
+import br.uema.pecs.adotapet.model.Raca;
+import br.uema.pecs.adotapet.repository.Racas;
+
 
 @RestController
-@RequestMapping("especies")
-public class EspecieResource {
+@RequestMapping("racas")
+public class RacaResource {
 
 	@Autowired
-	private Especies especies;
+	private Racas racas;
 
 	@PostMapping
-	public Especie salvar(@RequestBody Especie especie) {
-		return this.especies.save(especie);
+	public Raca salvar(@RequestBody Raca raca) {
+		return this.racas.save(raca);
 	}
 
 	@GetMapping
-	public List<Especie> listar() {
-		return this.especies.findAll();
+	public List<Raca> listar() {
+		return this.racas.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Especie> buscar(@PathVariable Integer id) {
-		Optional<Especie> optionalEspecie = especies.findById(id);
+	public ResponseEntity<Raca> buscar(@PathVariable Integer id) {
+		Optional<Raca> optionalRaca = racas.findById(id);
 
-		if (!optionalEspecie.isPresent()) {
+		if (!optionalRaca.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok(optionalEspecie.get());
+		return ResponseEntity.ok(optionalRaca.get());
 
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Especie> atualizar(@PathVariable Integer id, @RequestBody Especie especie) {
-		Optional<Especie> optionalEspecie = especies.findById(id);
+	public ResponseEntity<Raca> atualizar(@PathVariable Integer id, @RequestBody Raca Raca) {
+		Optional<Raca> optionalRaca = racas.findById(id);
 
-		if (!optionalEspecie.isPresent()) {
+		if (!optionalRaca.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Especie existente = optionalEspecie.get();
+		Raca existente = optionalRaca.get();
 
-		BeanUtils.copyProperties(especie, existente, "id");
+		BeanUtils.copyProperties(Raca, existente, "id");
 
-		existente = especies.save(existente);
+		existente = racas.save(existente);
 
 		return ResponseEntity.ok(existente);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> remover(@PathVariable Integer id) {
-		Optional<Especie> optionalEspecie = especies.findById(id);
+		Optional<Raca> optionalRaca = racas.findById(id);
 
-		if (!optionalEspecie.isPresent()) {
+		if (!optionalRaca.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		especies.delete(optionalEspecie.get());
+		racas.delete(optionalRaca.get());
 
 		return ResponseEntity.noContent().build();
 	}
