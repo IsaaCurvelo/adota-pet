@@ -51,7 +51,7 @@ public class Animal {
 
 	@ManyToOne
 	@JoinColumn
-	private Usuario dono;
+	private Usuario doador;
 
 	@OneToOne
 	@JoinColumn(name = "endereco_id")
@@ -113,12 +113,12 @@ public class Animal {
 		this.raca = raca;
 	}
 
-	public Usuario getDono() {
-		return dono;
+	public Usuario getDoador() {
+		return doador;
 	}
 
-	public void setDono(Usuario dono) {
-		this.dono = dono;
+	public void setDono(Usuario doador) {
+		this.doador = doador;
 	}
 
 	public Endereco getEndereco() {
@@ -157,7 +157,7 @@ public class Animal {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nome=" + nome + ", idade=" + idade + ", dataCadastro=" + dataCadastro + ", sexo="
-				+ sexo + ", foto=" + foto + ", raca=" + raca + ", dono=" + dono + ", endereco=" + endereco + "]";
+				+ sexo + ", foto=" + foto + ", raca=" + raca + ", dono=" + doador + ", endereco=" + endereco + "]";
 	}
 
 }
