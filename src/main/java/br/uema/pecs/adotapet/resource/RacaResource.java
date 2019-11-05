@@ -1,10 +1,11 @@
 package br.uema.pecs.adotapet.resource;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,8 @@ public class RacaResource {
 	}
 
 	@GetMapping
-	public List<Raca> listar() {
-		return this.racas.findAll();
+	public Page<Raca> listar(Pageable pageable) {
+		return this.racas.findAll(pageable);
 	}
 
 	@GetMapping("/{id}")
@@ -49,7 +50,7 @@ public class RacaResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Raca> atualizar(@PathVariable Integer id, @RequestBody Raca Raca) {
+	public ResponseEntity<Raca> atualizar(@PathVariable Integer id, @RequestBody Raca raca) {
 		Optional<Raca> optionalRaca = racas.findById(id);
 
 		if (!optionalRaca.isPresent()) {
@@ -58,7 +59,7 @@ public class RacaResource {
 
 		Raca existente = optionalRaca.get();
 
-		BeanUtils.copyProperties(Raca, existente, "id");
+		BeanUtils.copyProperties(raca, existente, "id");
 
 		existente = racas.save(existente);
 
