@@ -111,7 +111,7 @@ public class Animal {
 		return doador;
 	}
 
-	public void setDono(Usuario doador) {
+	public void setDoador(Usuario doador) {
 		this.doador = doador;
 	}
 
