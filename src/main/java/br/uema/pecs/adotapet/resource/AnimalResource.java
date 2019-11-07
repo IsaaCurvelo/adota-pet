@@ -3,7 +3,10 @@ package br.uema.pecs.adotapet.resource;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +27,7 @@ public class AnimalResource {
 
 	@Autowired
 	private Animals animals;
-	
+
 	@Autowired
 	private Enderecos enderecos;
 
@@ -35,16 +38,15 @@ public class AnimalResource {
 	public Animal salvar(@RequestParam("animal") String animalJson, @RequestParam("imagem") MultipartFile imagem) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			
+
 			Animal animal = mapper.readValue(animalJson, Animal.class);
-			
+
 			Endereco endereco = this.enderecos.save(animal.getEndereco());
 			animal.setEndereco(endereco);
-			
-			
-			animal.setFoto("/img/");
+
+			animal.setFoto("/fotos/");
 			animal = this.animals.save(animal);
-			
+
 			animal.setFoto(animal.getFoto() + animal.getId() + ".jpg");
 			this.animals.save(animal);
 
@@ -56,6 +58,11 @@ public class AnimalResource {
 		}
 
 		return null;
+	}
+
+	@GetMapping
+	public Page<Animal> listar(Pageable pageable) {
+		return this.animals.findAll(pageable);
 	}
 
 }
