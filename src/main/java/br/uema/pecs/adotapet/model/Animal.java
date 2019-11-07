@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,27 +20,22 @@ public class Animal {
 	private Integer id;
 
 	@Column
-	@NotBlank
 	@NotNull
 	private String nome;
 
 	@Column
-	@NotBlank
 	@NotNull
 	private Integer idade;
 
-	@NotBlank
 	@NotNull
 	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
 	@Column
-	@NotBlank
 	@NotNull
 	private String sexo;
 
 	@Column
-	@NotBlank
 	@NotNull
 	private String foto;
 
@@ -50,7 +44,7 @@ public class Animal {
 	private Raca raca;
 
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "doador")
 	private Usuario doador;
 
 	@OneToOne
