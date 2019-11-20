@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -47,9 +47,30 @@ public class Animal {
 	@JoinColumn(name = "doador")
 	private Usuario doador;
 
-	@OneToOne
-	@JoinColumn(name = "endereco_id")
-	private Endereco endereco;
+	@Column
+	@NotBlank
+	@NotNull
+	private String logradouro;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String cep;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String bairro;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String numero;
+
+	@NotBlank
+	@NotNull
+	@Column(name = "para_adocao")
+	private Boolean paraAdocao;
 
 	public Integer getId() {
 		return id;
@@ -115,12 +136,44 @@ public class Animal {
 		this.doador = doador;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public Boolean getParaAdocao() {
+		return paraAdocao;
+	}
+
+	public void setParaAdocao(Boolean paraAdocao) {
+		this.paraAdocao = paraAdocao;
 	}
 
 	@Override
@@ -151,7 +204,8 @@ public class Animal {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nome=" + nome + ", idade=" + idade + ", dataCadastro=" + dataCadastro + ", sexo="
-				+ sexo + ", foto=" + foto + ", raca=" + raca + ", dono=" + doador + ", endereco=" + endereco + "]";
+				+ sexo + ", foto=" + foto + ", raca=" + raca + ", doador=" + doador + ", logradouro=" + logradouro
+				+ ", cep=" + cep + ", bairro=" + bairro + ", numero=" + numero + ", paraAdocao=" + paraAdocao + "]";
 	}
 
 }

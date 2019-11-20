@@ -16,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.uema.pecs.adotapet.model.Animal;
-import br.uema.pecs.adotapet.model.Endereco;
 import br.uema.pecs.adotapet.repository.Animals;
-import br.uema.pecs.adotapet.repository.Enderecos;
 import br.uema.pecs.adotapet.storage.Storage;
 
 @RestController
@@ -29,9 +27,6 @@ public class AnimalResource {
 	private Animals animals;
 
 	@Autowired
-	private Enderecos enderecos;
-
-	@Autowired
 	private Storage storage;
 
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -40,9 +35,6 @@ public class AnimalResource {
 		try {
 
 			Animal animal = mapper.readValue(animalJson, Animal.class);
-
-			Endereco endereco = this.enderecos.save(animal.getEndereco());
-			animal.setEndereco(endereco);
 
 			animal.setFoto("/fotos/");
 			animal = this.animals.save(animal);
