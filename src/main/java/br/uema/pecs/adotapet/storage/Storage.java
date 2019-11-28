@@ -11,10 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class Storage {
-	@Value("${contato.disco.raiz}")
+	@Value("${adotapet.disco.raiz}")
 	private String raiz;
 	
-	@Value("${contato.disco.diretorio-fotos}")
+	@Value("${adotapet.disco.diretorio-fotos}")
 	private String diretorioFotos;
 	
 	public void salvarFoto(MultipartFile foto, String nome) {

@@ -51,10 +51,25 @@ public class UsuarioResource {
 		}
 
 		Usuario existente = optionalUsuario.get();
-		String bcryptHashString = BCrypt.withDefaults().hashToString(10, usuario.getSenha().toCharArray());
-		usuario.setSenha(bcryptHashString);
-		BeanUtils.copyProperties(usuario, existente, "id");
+		BeanUtils.copyProperties(usuario, existente, "id", "senha");
 
+		existente = usuarios.save(existente);
+
+		return ResponseEntity.ok(existente);
+	}
+	
+	@PutMapping("/alterar-senha/{id}")
+	public ResponseEntity<Usuario> alterarSenha(@PathVariable Integer id, @RequestBody Usuario usuario) {
+		Optional<Usuario> optionalUsuario = usuarios.findById(id);
+
+		if (!optionalUsuario.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		Usuario existente = optionalUsuario.get();
+		String bcryptHashString = BCrypt.withDefaults().hashToString(10, usuario.getSenha().toCharArray());
+		existente.setSenha(bcryptHashString);
+		
 		existente = usuarios.save(existente);
 
 		return ResponseEntity.ok(existente);
