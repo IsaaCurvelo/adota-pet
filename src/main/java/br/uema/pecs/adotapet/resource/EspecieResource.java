@@ -1,11 +1,10 @@
 package br.uema.pecs.adotapet.resource;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +31,8 @@ public class EspecieResource {
 	}
 
 	@GetMapping
-	public Page<Especie> listar(Pageable pageable) {
-		return this.especies.findAll(pageable);
+	public List<Especie> listar() {
+		return this.especies.findAll();
 	}
 
 	@GetMapping("/{id}")
