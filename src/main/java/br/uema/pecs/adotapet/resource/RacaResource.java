@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.uema.pecs.adotapet.model.Especie;
 import br.uema.pecs.adotapet.model.Raca;
+import br.uema.pecs.adotapet.repository.Especies;
 import br.uema.pecs.adotapet.repository.Racas;
-
 
 @RestController
 @RequestMapping("racas")
@@ -25,6 +26,9 @@ public class RacaResource {
 
 	@Autowired
 	private Racas racas;
+
+	@Autowired
+	private Especies especies;
 
 	@PostMapping
 	public Raca salvar(@RequestBody Raca raca) {
@@ -34,6 +38,12 @@ public class RacaResource {
 	@GetMapping
 	public List<Raca> listar() {
 		return this.racas.findAll();
+	}
+
+	@GetMapping("/especie/{especieId}")
+	public List<Raca> listarRacasPorEspecie(@PathVariable Integer especieId) {
+		Especie especie = this.especies.findById(especieId).get();
+		return this.racas.findByEspecie(especie);
 	}
 
 	@GetMapping("/{id}")
