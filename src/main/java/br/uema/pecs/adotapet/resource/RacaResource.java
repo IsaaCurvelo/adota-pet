@@ -32,6 +32,10 @@ public class RacaResource {
 
 	@PostMapping
 	public Raca salvar(@RequestBody Raca raca) {
+		if (raca.getEspecie().getId() == null) {
+			Especie novaEspecie = especies.save(raca.getEspecie());
+			raca.setEspecie(novaEspecie);
+		}
 		return this.racas.save(raca);
 	}
 

@@ -1,6 +1,7 @@
 package br.uema.pecs.adotapet.resource;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class AnimalResource {
 		try {
 
 			Animal animal = mapper.readValue(animalJson, Animal.class);
-
+			animal.setDataCadastro(new Date());
 			animal.setFoto("/fotos/");
 			animal = this.animals.save(animal);
 

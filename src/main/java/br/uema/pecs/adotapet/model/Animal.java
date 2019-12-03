@@ -67,7 +67,6 @@ public class Animal {
 	@NotNull
 	private String numero;
 
-	@NotBlank
 	@NotNull
 	@Column(name = "para_adocao")
 	private Boolean paraAdocao;
