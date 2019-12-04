@@ -3,14 +3,17 @@ package br.uema.pecs.adotapet.resource;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,15 +63,30 @@ public class AnimalResource {
 		return null;
 	}
 
+	@PutMapping("/{id}")
+	public ResponseEntity<Animal> atualizar(@PathVariable Integer id, @RequestBody Animal animal) {
+		Optional<Animal> optionalAnimal = animals.findById(id);
+
+		if (!optionalAnimal.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		Animal existente = optionalAnimal.get();
+
+		BeanUtils.copyProperties(animal, existente, "id");
+
+		return ResponseEntity.ok(animals.save(existente));
+	}
+
 	@GetMapping
-	public Page<Animal> listar(Pageable pageable) {
-		return this.animals.findAll(pageable);
+	public List<Animal> listar() {
+		return this.animals.findAllParaAdocao();
 	}
 
 	@GetMapping("/usuario/{usuarioId}")
 	public List<Animal> listarPorUsuario(@PathVariable("usuarioId") Integer usuarioId) {
 		Usuario usuario = usuarios.findById(usuarioId).get();
-		return this.animals.findByDoador(usuario);
+		return this.animals.findByDono(usuario);
 	}
 
 }

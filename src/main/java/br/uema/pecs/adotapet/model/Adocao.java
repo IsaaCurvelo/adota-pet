@@ -20,7 +20,6 @@ public class Adocao {
 	private Integer id;
 
 	@Column
-	@NotBlank
 	@NotNull
 	private Date dataAdocao;
 
@@ -29,8 +28,35 @@ public class Adocao {
 	private Animal animal;
 
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "doador")
+	private Usuario doador;
+
+	@ManyToOne
+	@JoinColumn(name = "adotante")
 	private Usuario adotante;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String logradouro;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String cep;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String bairro;
+
+	@Column
+	@NotBlank
+	@NotNull
+	private String numero;
+
+	@Column(name = "a_confirmar")
+	private Boolean aConfirmar;
 
 	public Integer getId() {
 		return id;
@@ -56,12 +82,60 @@ public class Adocao {
 		this.animal = animal;
 	}
 
+	public Usuario getDoador() {
+		return doador;
+	}
+
+	public void setDoador(Usuario doador) {
+		this.doador = doador;
+	}
+
 	public Usuario getAdotante() {
 		return adotante;
 	}
 
 	public void setAdotante(Usuario adotante) {
 		this.adotante = adotante;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public Boolean getaConfirmar() {
+		return aConfirmar;
+	}
+
+	public void setaConfirmar(Boolean aConfirmar) {
+		this.aConfirmar = aConfirmar;
 	}
 
 	@Override
@@ -91,8 +165,9 @@ public class Adocao {
 
 	@Override
 	public String toString() {
-		return "Adocao [id=" + id + ", dataAdocao=" + dataAdocao + ", animal=" + animal + ", adotante=" + adotante
-				+ "]";
+		return "Adocao [id=" + id + ", dataAdocao=" + dataAdocao + ", animal=" + animal + ", doador=" + doador
+				+ ", adotante=" + adotante + ", logradouro=" + logradouro + ", cep=" + cep + ", bairro=" + bairro
+				+ ", numero=" + numero + ", aConfirmar=" + aConfirmar + "]";
 	}
 
 }

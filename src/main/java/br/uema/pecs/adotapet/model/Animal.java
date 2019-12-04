@@ -44,8 +44,8 @@ public class Animal {
 	private Raca raca;
 
 	@ManyToOne
-	@JoinColumn(name = "doador")
-	private Usuario doador;
+	@JoinColumn(name = "dono")
+	private Usuario dono;
 
 	@Column
 	@NotBlank
@@ -127,12 +127,12 @@ public class Animal {
 		this.raca = raca;
 	}
 
-	public Usuario getDoador() {
-		return doador;
+	public Usuario getDono() {
+		return dono;
 	}
 
-	public void setDoador(Usuario doador) {
-		this.doador = doador;
+	public void setDono(Usuario dono) {
+		this.dono = dono;
 	}
 
 	public String getLogradouro() {
@@ -203,7 +203,7 @@ public class Animal {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nome=" + nome + ", idade=" + idade + ", dataCadastro=" + dataCadastro + ", sexo="
-				+ sexo + ", foto=" + foto + ", raca=" + raca + ", doador=" + doador + ", logradouro=" + logradouro
+				+ sexo + ", foto=" + foto + ", raca=" + raca + ", dono=" + dono + ", logradouro=" + logradouro
 				+ ", cep=" + cep + ", bairro=" + bairro + ", numero=" + numero + ", paraAdocao=" + paraAdocao + "]";
 	}
 
